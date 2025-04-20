@@ -1,0 +1,48 @@
+import random
+
+# Define logic gate functions
+def AND(a, b): return int(a and b)
+def OR(a, b): return int(a or b)
+def NOT(a): return int(not a)
+def NAND(a, b): return int(not (a and b))
+def NOR(a, b): return int(not (a or b))
+def XOR(a, b): return int(a != b)
+
+# Logic questions
+questions = [
+    {"question": "AND(1, 1)", "func": lambda: AND(1, 1)},
+    {"question": "AND(0, 1)", "func": lambda: AND(0, 1)},
+    {"question": "OR(0, 0)", "func": lambda: OR(0, 0)},
+    {"question": "OR(1, 0)", "func": lambda: OR(1, 0)},
+    {"question": "NOT(1)", "func": lambda: NOT(1)},
+    {"question": "NOT(0)", "func": lambda: NOT(0)},
+    {"question": "NAND(1, 1)", "func": lambda: NAND(1, 1)},
+    {"question": "NOR(0, 0)", "func": lambda: NOR(0, 0)},
+    {"question": "XOR(1, 1)", "func": lambda: XOR(1, 1)},
+    {"question": "XOR(1, 0)", "func": lambda: XOR(1, 0)},
+]
+
+def play_game():
+    print("🔌 Welcome to Logic Gates Master 🔌\n")
+    score = 0
+    random.shuffle(questions)
+
+    for i, q in enumerate(questions[:5]):  # Ask only 5 questions per game
+        print(f"Q{i+1}: What is the output of {q['question']}?")
+        user_input = input("Enter 0 or 1: ").strip()
+
+        if user_input not in ("0", "1"):
+            print("⚠️ Invalid input. Please enter 0 or 1.\n")
+            continue
+
+        correct_answer = q["func"]()
+        if int(user_input) == correct_answer:
+            print("✅ Correct!\n")
+            score += 1
+        else:
+            print(f"❌ Incorrect. The correct answer was {correct_answer}.\n")
+
+    print(f"🏁 Game Over! Your final score: {score}/5")
+
+if __name__ == "__main__":
+    play_game()
